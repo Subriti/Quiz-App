@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Quiz_Automation</string>
+    <string name="submit">Submit</string>
+    <string name="todo">Todo</string>
+</resources>
