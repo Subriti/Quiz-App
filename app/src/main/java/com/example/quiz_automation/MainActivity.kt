@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
             keys[4] to values[4][1],
             keys[5] to values[5][2]
         )
-
         //Storing questions and all its options
         // questionanswers= hashMapOf(keys[0] to values[0],keys[1] to values[1],keys[2] to values[2],keys[3] to values[3],keys[4] to values[4] )
 
