@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "185782655760",
+    "project_id": "login-page-e30f1",
+    "storage_bucket": "login-page-e30f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185782655760:android:cb9937e1b40f73e70a6395",
+        "android_client_info": {
+          "package_name": "com.example.quiz_scoreCalculation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185782655760-dae6nip32ovasbhppd0jgm3vqslef23k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASqva_yq35IACXvdI80Og-Uc0C_pQK1sU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185782655760-dae6nip32ovasbhppd0jgm3vqslef23k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
