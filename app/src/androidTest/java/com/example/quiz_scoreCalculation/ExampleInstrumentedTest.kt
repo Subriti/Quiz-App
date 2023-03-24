@@ -1,4 +1,4 @@
-package com.example.quiz_automation
+package com.example.quiz_scoreCalculation
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.quiz_automation", appContext.packageName)
+        assertEquals("com.example.quiz_scoreCalculation", appContext.packageName)
     }
 }

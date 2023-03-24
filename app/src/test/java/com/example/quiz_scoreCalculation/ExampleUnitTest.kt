@@ -1,4 +1,4 @@
-package com.example.quiz_automation
+package com.example.quiz_scoreCalculation
 
 import org.junit.Test
 

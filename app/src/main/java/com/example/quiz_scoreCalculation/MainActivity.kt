@@ -1,4 +1,4 @@
-package com.example.quiz_automation
+package com.example.quiz_scoreCalculation
 
 import android.os.Bundle
 import android.widget.Toast
@@ -9,12 +9,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var index = 0
     private var keys = ArrayList<String>()
     private var values = ArrayList<ArrayList<String>>()
     private var correctKeyValues = HashMap<String, String>()
-    //private var questionanswers= HashMap<String,ArrayList<String>>()
 
+    private var index = 0
+    private lateinit var selection: String
+    var selectedanswers = ArrayList<String>()
 
     private fun arrayLists() {
 
@@ -30,7 +31,14 @@ class MainActivity : AppCompatActivity() {
         values.add(arrayListOf("Blue", "Red", "Green", "Yellow"))
         values.add(arrayListOf("362", "365", "369", "366"))
         values.add(arrayListOf("Japan", "China", "Australia", "Russia"))
-        values.add(arrayListOf("Mt. Everest","Mt. Annapurna","Mt. Kanchenjunga","Mt. Dhaulagiri"))
+        values.add(
+            arrayListOf(
+                "Mt. Everest",
+                "Mt. Annapurna",
+                "Mt. Kanchenjunga",
+                "Mt. Dhaulagiri"
+            )
+        )
         values.add(arrayListOf("HCl", "H20", "HI", "NaOH"))
         values.add(arrayListOf("Africa", "North America", "Asia", "Europe"))
 
@@ -43,9 +51,8 @@ class MainActivity : AppCompatActivity() {
             keys[4] to values[4][1],
             keys[5] to values[5][2]
         )
-        //Storing questions and all its options
-        // questionanswers= hashMapOf(keys[0] to values[0],keys[1] to values[1],keys[2] to values[2],keys[3] to values[3],keys[4] to values[4] )
 
+        //Loading the first question at the start of the app
         changequestions(0)
     }
 
@@ -53,6 +60,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        finalScore.isVisible = false
+
+        //Loading the app with arraylists
         arrayLists()
 
         option1.setOnClickListener {
@@ -79,50 +89,60 @@ class MainActivity : AppCompatActivity() {
         submit.setOnClickListener {
             val answer = checkanswers()
 
-            for ((key, value) in correctKeyValues) {
-                if (answer == "") {
-                    Toast.makeText(this, "Select one answer to proceed", Toast.LENGTH_SHORT)
+            if (answer == "") {
+                Toast.makeText(this, "Select one answer to proceed", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                if (answer == correctKeyValues[keys[index]]) {
+                    Toast.makeText(this, "Correct Answer ✅", Toast.LENGTH_SHORT)
                         .show()
-                    break
-                }
-                if (value == answer) {
+                } else {
                     Toast.makeText(
                         this,
-                        "You found the correct answer i.e. $answer",
-                        Toast.LENGTH_LONG
+                        "Incorrect Answer ❌ : ${correctKeyValues[keys[index]]} was the correct answer",
+                        Toast.LENGTH_SHORT
                     ).show()
-                    option1.isChecked = false
-                    option2.isChecked = false
-                    option3.isChecked = false
-                    option4.isChecked = false
-                    index += 1
-                    changequestions(index)
-                    break
                 }
+
+                index += 1
+                changequestions(index)
+                option1.isChecked = false
+                option2.isChecked = false
+                option3.isChecked = false
+                option4.isChecked = false
             }
         }
     }
 
     private fun checkanswers(): String {
-        val selection: String
-        val selection1 = option1.isChecked
-        val selection2 = option2.isChecked
-        val selection3 = option3.isChecked
-        val selection4 = option4.isChecked
-        selection = if (selection1) {
+        selection = if (option1.isChecked) {
             (option1.text).toString()
-        } else if (selection2) {
+        } else if (option2.isChecked) {
             (option2.text).toString()
-        } else if (selection3) {
+        } else if (option3.isChecked) {
             (option3.text).toString()
-        } else if (selection4) {
+        } else if (option4.isChecked) {
             (option4.text).toString()
         } else
             ""
+        if (selection != "") {
+            selectedanswers.add(selection)
+        }
         return selection
     }
 
+    private fun calculateScore(): Int {
+        var score = 0
+        for (each in selectedanswers) {
+            if (each in correctKeyValues.values) {
+                score += 10
+            }
+        }
+        return score
+    }
+
     private fun changequestions(index: Int) {
+        score.text = "Score: ${calculateScore()}🎭"
         try {
             if (index <= values.size) {
                 question_field.text = keys[index]
@@ -139,6 +159,11 @@ class MainActivity : AppCompatActivity() {
             option4.isVisible = false
             submit.isVisible = false
             question_field.textSize = 24F
+            score.textSize = 24F
+            Toast.makeText(this, "Your Score is ${calculateScore()}✨", Toast.LENGTH_LONG).show()
+            finalScore.text = "Your final Score is: ${calculateScore()}✨"
+            finalScore.isVisible = true
+            score.isVisible = false
         }
     }
 }
